@@ -42,10 +42,9 @@ func (pow *ProofOfWork) Run() ([]byte, uint64) {
 		fmt.Printf("%x\r", hash)
 		hash = sha256.Sum256(pow.prepareData(nonce))
 		var bigIntTmp big.Int
-		bigIntTmp.SetBytes(hash[:])
+		bigIntTmp.SetBytes(hash[:]) //将[]byte类型转化为big.Int类型
 		if bigIntTmp.Cmp(pow.target) == -1 {
-			fmt.Printf("挖矿成功 nonce  %d,哈希值为 %x\n", nonce, hash)
-			//fmt.Printf("挖矿成功！nonce: %d, 哈希值为: %x\n", nonce, hash)
+			fmt.Printf("挖矿成功！nonce: %d, 哈希值为: %x\n", nonce, hash)
 			break
 		} else {
 			nonce++
@@ -55,6 +54,7 @@ func (pow *ProofOfWork) Run() ([]byte, uint64) {
 
 }
 
+//计算[block + nonce]的hash值
 func (pow *ProofOfWork) prepareData(nonce uint64) []byte {
 	block := pow.block
 	temp := [][]byte{

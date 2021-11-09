@@ -7,7 +7,7 @@ type BlockChain struct {
 
 //创建区块链
 func NewBlockChain() *BlockChain {
-	gen := NewBlock("aaa", []byte{0x0000000000000000})
+	gen := NewBlock("The Times 03/Jan/2009 Chancellor on brink of second bailout for banks", []byte{0x0000000000000000})
 	bc := BlockChain{Blocks: []*Block{gen}}
 	return &bc
 }

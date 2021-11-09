@@ -11,9 +11,14 @@ func main() {
 
 	bc := NewBlockChain()
 
-	bc.AddBlock("第一个新增block")
+	bc.AddBlock("俺是第一个block")
 
-	for _, blockt := range bc.Blocks {
+	bc.AddBlock("俺是第二个block")
+
+	bc.AddBlock("俺是第三个block")
+
+	for idx, blockt := range bc.Blocks {
+		fmt.Printf("======================== %d ===================\n", idx)
 		fmt.Printf("prv : %x\n", blockt.PreBlockHash)
 		fmt.Printf("hash : %x\n", blockt.Hash)
 		fmt.Printf("data : %s\n", blockt.Data)

@@ -23,10 +23,10 @@ func NewBlock(data string, preBlockHash []byte) *Block {
 		PreBlockHash: preBlockHash,
 		MerkleRoot:   []byte{},
 		TimeStamp:    uint64(time.Now().Unix()),
-		Difficulity:  10,
-		Nonce:        10,
-		Data:         []byte(data),
-		Hash:         []byte{},
+		Difficulity:  Bits,
+		//Nonce:        10,
+		Data: []byte(data),
+		Hash: []byte{},
 	}
 	//block.SetHash()
 	pow := NewProofOfWork(&block)

@@ -69,3 +69,12 @@ func (pow *ProofOfWork) prepareData(nonce uint64) []byte {
 	data := bytes.Join(temp, []byte{})
 	return data
 }
+
+func (pow *ProofOfWork) IsVaild() bool {
+	data := pow.prepareData(pow.block.Nonce)
+	hash := sha256.Sum256(data)
+	var temp big.Int
+	temp.SetBytes(hash[:])
+
+	return temp.Cmp(pow.target) == -1
+}

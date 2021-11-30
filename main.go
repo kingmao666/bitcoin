@@ -17,11 +17,14 @@ func main() {
 
 	bc.AddBlock("俺是第三个block")
 
-	for idx, blockt := range bc.Blocks {
+	for idx, block := range bc.Blocks {
 		fmt.Printf("======================== %d ===================\n", idx)
-		fmt.Printf("prv : %x\n", blockt.PreBlockHash)
-		fmt.Printf("hash : %x\n", blockt.Hash)
-		fmt.Printf("data : %s\n", blockt.Data)
+		fmt.Printf("prv : %x\n", block.PreBlockHash)
+		fmt.Printf("hash : %x\n", block.Hash)
+		fmt.Printf("data : %s\n", block.Data)
+
+		pow := NewProofOfWork(block)
+		fmt.Printf("Isvaild: %v\n", pow.IsVaild())
 	}
 
 }

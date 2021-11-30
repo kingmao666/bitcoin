@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -19,7 +20,16 @@ func main() {
 
 	for idx, block := range bc.Blocks {
 		fmt.Printf("======================== %d ===================\n", idx)
-		fmt.Printf("prv : %x\n", block.PreBlockHash)
+		fmt.Printf("Version : %d\n", block.Version)
+		fmt.Printf("PreBlockHash : %x\n", block.PreBlockHash)
+		fmt.Printf("MerkleRoot : %x\n", block.MerkleRoot)
+
+		timeFormat := time.Unix(int64(block.TimeStamp), 0).Format("2006-01-02 15:04:05")
+
+		fmt.Printf("TimeStamp : %s\n", timeFormat)
+		fmt.Printf("Difficulity : %d\n", block.Difficulity)
+		fmt.Printf("Nonce : %d\n", block.Nonce)
+		fmt.Printf("Version : %d\n", block.Version)
 		fmt.Printf("hash : %x\n", block.Hash)
 		fmt.Printf("data : %s\n", block.Data)
 

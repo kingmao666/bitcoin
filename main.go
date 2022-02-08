@@ -1,24 +1,20 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
-
 func main() {
 	//fmt.Println("hello bitcoin")
 
 	//block := NewBlock("The Times 2009-1-03 Chancellor on brink of second bailout for banks", []byte{0x0000000000000000})
 
 	bc := NewBlockChain()
+	defer bc.db.Close()
 
 	bc.AddBlock("俺是第一个block")
 
 	bc.AddBlock("俺是第二个block")
 
-	bc.AddBlock("俺是第三个block")
+	//bc.AddBlock("俺是第三个block")
 
-	for idx, block := range bc.Blocks {
+	/*for idx, block := range bc.Blocks {
 		fmt.Printf("======================== %d ===================\n", idx)
 		fmt.Printf("Version : %d\n", block.Version)
 		fmt.Printf("PreBlockHash : %x\n", block.PreBlockHash)
@@ -35,6 +31,6 @@ func main() {
 
 		pow := NewProofOfWork(block)
 		fmt.Printf("Isvaild: %v\n", pow.IsVaild())
-	}
+	}*/
 
 }

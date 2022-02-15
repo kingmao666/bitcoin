@@ -1,5 +1,11 @@
 package main
 
+import (
+	"bytes"
+	"fmt"
+	"time"
+)
+
 func main() {
 	//fmt.Println("hello bitcoin")
 
@@ -12,10 +18,12 @@ func main() {
 
 	bc.AddBlock("俺是第二个block")
 
-	//bc.AddBlock("俺是第三个block")
+	bc.AddBlock("入库block")
 
-	/*for idx, block := range bc.Blocks {
-		fmt.Printf("======================== %d ===================\n", idx)
+	it := bc.NewIterator()
+
+	for {
+		block := it.Next()
 		fmt.Printf("Version : %d\n", block.Version)
 		fmt.Printf("PreBlockHash : %x\n", block.PreBlockHash)
 		fmt.Printf("MerkleRoot : %x\n", block.MerkleRoot)
@@ -31,6 +39,18 @@ func main() {
 
 		pow := NewProofOfWork(block)
 		fmt.Printf("Isvaild: %v\n", pow.IsVaild())
+
+		if bytes.Equal(block.PreBlockHash, []byte{}) {
+			fmt.Printf("区块链遍历结束～～~!\n")
+			break
+		}
+
+	}
+
+	//bc.AddBlock("俺是第三个block")
+
+	/*for idx, block := range bc.Blocks {
+
 	}*/
 
 }

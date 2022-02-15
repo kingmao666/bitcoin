@@ -78,7 +78,7 @@ func (block *Block) Serialize() []byte {
 
 //反序列化
 func Deserialize(data []byte) *Block {
-	fmt.Printf("解码传入的数据： %x\n", data)
+	//fmt.Printf("解码传入的数据： %x\n", data)
 	var block Block
 	decoder := gob.NewDecoder(bytes.NewReader(data))
 	err := decoder.Decode(&block)
@@ -103,4 +103,35 @@ func (bc *BlockChain) AddBlock(data string) {
 		bc.tail = block.Hash
 		return nil
 	})
+}
+
+//定义一个区块链迭代器
+type BlockChainIterator struct {
+	db      *bolt.DB
+	current []byte
+}
+
+//创建迭代器
+func (bc *BlockChain) NewIterator() *BlockChainIterator {
+	return &BlockChainIterator{bc.db, bc.tail}
+}
+
+func (it *BlockChainIterator) Next() *Block {
+	var block Block
+
+	it.db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(blockBucketName))
+		if b == nil {
+			fmt.Printf("bucket不存在，请检查数据！\n")
+			os.Exit(1)
+		}
+		blockInfo := b.Get(it.current)
+		block = *Deserialize(blockInfo)
+		it.current = block.PreBlockHash
+
+		return nil
+	})
+
+	return &block
+
 }
